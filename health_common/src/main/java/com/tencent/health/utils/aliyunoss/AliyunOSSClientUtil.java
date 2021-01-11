@@ -204,6 +204,7 @@ public class AliyunOSSClientUtil {
             String md5key = AliyunOSSClientUtil.uploadObject2OSS(ossClient, filess, BACKET_NAME, FOLDER);
             logger.info("上传后的文件MD5数字唯一签名:" + md5key);
             //上传后的文件MD5数字唯一签名:40F4131427068E08451D37F02021473A
+
         }
 
     }
