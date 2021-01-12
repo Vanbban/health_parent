@@ -11,6 +11,7 @@ import com.tencent.health.service.CheckGroupService;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -92,5 +93,12 @@ public class CheckGroupController {
    public Result deleteById(int id){
        checkGroupService.deleteById(id);
        return new Result(true, MessageConstant.DELETE_CHECKGROUP_SUCCESS);
+   }
+
+
+   @GetMapping("/findAll")
+    public Result findAll(){
+       List<CheckGroup> all =checkGroupService.findAll();
+       return new Result(true, MessageConstant.QUERY_CHECKGROUP_SUCCESS,all);
    }
 }

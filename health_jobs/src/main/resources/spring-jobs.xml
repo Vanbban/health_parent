@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/task
+       http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <!--  注册任务到spring容器  -->
+    <context:component-scan base-package="com.tencent.health.job"/>
+    <!--  任务策略  -->
+    <bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!--  任务触发时调用的 目标对象 targetObject
+               targetMethod 目标对象中的方法
+        -->
+        <property name="targetObject" ref="myJob"/>
+        <property name="targetMethod" value="abc"/>
+        <!--   并发 concurrent=false 单线程
+           true: 在规定的周期内任务没完成时，又触发新的任务，属于同一任务时。使用多线程来处理任务
+         -->
+        <property name="concurrent" value="true"/>
+    </bean>
+    <!--  触发器  -->
+    <bean id="trigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <!--  七子表达式： 秒 分 时 日 月 周 年（省略）     -->
+        <property name="cronExpression" value="0/2 * * * * ?"/>
+        <property name="jobDetail" ref="jobDetail"/>
+    </bean>
+    <!--  调度容器  -->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="trigger"/>
+            </list>
+        </property>
+    </bean>
+    <!--注解支持 【注意】：使用的约束是spring-task，不要导错了-->
+    <task:annotation-driven/>
+    <!--任务调度线程池-->
+    <bean class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler"/>
+</beans>

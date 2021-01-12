@@ -65,4 +65,5 @@ public interface MessageConstant {
     static final String GET_SETMEAL_LIST_SUCCESS = "查询套餐列表数据成功";
     static final String GET_SETMEAL_LIST_FAIL = "查询套餐列表数据失败";
     static final String CHECKGROUP_IN_USE ="该检查组被套餐使用了,不能删除" ;
+    static final String EDIT_SETMEAL_SUCCESS ="编辑套餐成功";
 }

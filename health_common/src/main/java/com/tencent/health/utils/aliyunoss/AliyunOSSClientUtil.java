@@ -60,6 +60,7 @@ public class AliyunOSSClientUtil {
             Bucket bucket=ossClient.createBucket(bucketName);
             logger.info("创建存储空间成功");
             return bucket.getName();
+
         }
         return bucketNames;
     }
@@ -150,6 +151,7 @@ public class AliyunOSSClientUtil {
             logger.error("上传阿里云OSS服务器异常." + e.getMessage(), e);
         }
         return resultStr;
+
     }
 
     /**

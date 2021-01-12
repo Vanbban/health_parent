@@ -53,4 +53,7 @@ public interface CheckGroupService {
      * @param id
      */
     void deleteById(int id);
+
+    List<CheckGroup> findAll();
+
 }

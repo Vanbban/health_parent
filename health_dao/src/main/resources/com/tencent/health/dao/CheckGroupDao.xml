@@ -54,4 +54,7 @@
     <select id="findSetmealCountByCheckGroupId" resultType="java.lang.Integer">
             select count(1) from t_setmeal_checkgroup where checkgroup_id=#{id}
     </select>
+    <select id="findAll" resultType="com.tencent.health.pojo.CheckGroup">
+        select * from t_checkgroup
+    </select>
 </mapper>

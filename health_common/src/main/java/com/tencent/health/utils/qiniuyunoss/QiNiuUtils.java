@@ -25,6 +25,8 @@ public class QiNiuUtils {
     private static String SECRETKEY;
     private static String BUCKET;
     public static String DOMAIN;
+    private static long logTimestemp4Toke = 0l;
+    private static String token = null;
     //初始化属性
     static{
         ACCESSKEY = QiNiuConstants.ACCESSKEY;
@@ -35,10 +37,17 @@ public class QiNiuUtils {
     }
 
 
+   /* private static final String ACCESSKEY ="dr4NQeQk_i8RCAo3HyHlD3zak_a9bg98UTxMBB1i";
+    private static final String SECRETKEY ="SpgF8X6t_DmjYq3zCzmFwtudIUBgcRWk9dfPgfRE";
+    private static final String BUCKET = "szhealth106";
+    public static final String DOMAIN = "http://qms3pceql.hn-bkt.clouddn.com/";
+    private static long logTimestemp4Toke = 0l;
+    private static String token = null;*/
+
     public static void main(String[] args) {
-        //uploadFile("C:\\Users\\Eric\\Desktop\\file\\timg.jpg","dd2.jpg");
+        uploadFile("D:\\health\\2.jpg","dd2cc.jpg");
         //removeFiles("20190529083159.jpg","20190529083241.jpg");
-        listFile();
+        //listFile();
     }
 
     /**
@@ -143,11 +152,14 @@ public class QiNiuUtils {
     }
 
     private static String getToken(){
-        // 创建授权
-        Auth auth = Auth.create(ACCESSKEY, SECRETKEY);
-        // 获得认证后的令牌
-        String upToken = auth.uploadToken(BUCKET);
-        return upToken;
+        if(System.currentTimeMillis() > logTimestemp4Toke) {
+            // 创建授权
+            Auth auth = Auth.create(ACCESSKEY, SECRETKEY);
+            // 获得认证后的令牌
+            token = auth.uploadToken(BUCKET);
+            logTimestemp4Toke = System.currentTimeMillis() + 60*60*1000l;
+        }
+        return token;
     }
 
     private static UploadManager getUploadManager(){
